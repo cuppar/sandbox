@@ -1,3 +1,4 @@
+using System;
 using Godot;
 using Sandbox.Classes;
 
@@ -22,7 +23,8 @@ public partial class Player : CharacterBody2D, IStateMachine<Player.State>
 
     public enum State
     {
-        Idle
+        Idle,
+        Move,
     }
 
     #endregion
@@ -31,12 +33,42 @@ public partial class Player : CharacterBody2D, IStateMachine<Player.State>
 
     public void TransitionState(State fromState, State toState)
     {
+        GD.Print($"{Name}: {fromState} => {toState}");
     }
 
     public State GetNextState(State currentState, out bool keepCurrent)
     {
+        keepCurrent = false;
+        var moveDirection = GetMoveDirection();
+
+        switch (currentState)
+        {
+            case State.Idle:
+                if (moveDirection.Length() != 0)
+                {
+                    return State.Move;
+                }
+
+                break;
+            case State.Move:
+                if (moveDirection.Length() == 0)
+                {
+                    return State.Idle;
+                }
+
+                break;
+
+            default:
+                throw new ArgumentOutOfRangeException(nameof(currentState), currentState, null);
+        }
+
         keepCurrent = true;
         return currentState;
+
+        Vector2 GetMoveDirection()
+        {
+            return Input.GetVector("move_left", "move_right", "move_up", "move_down");
+        }
     }
 
     public void TickPhysics(State currentState, double delta)
