@@ -21,5 +21,5 @@ metadata/_edit_lock_ = true
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0
-theme_override_font_sizes/font_size = 176
-text = "HUD"
+theme_override_font_sizes/font_size = 41
+text = "HUD is show"

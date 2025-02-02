@@ -5,6 +5,19 @@ namespace Sandbox;
 
 public partial class Player : CharacterBody2D, IStateMachine<Player.State>
 {
+    #region 生命周期
+
+    private Player()
+    {
+        _stateMachine = StateMachine<State>.Create(this);
+    }
+
+    #endregion
+
+    #region 状态机
+
+    private StateMachine<State> _stateMachine;
+
     #region State enum
 
     public enum State
@@ -13,13 +26,6 @@ public partial class Player : CharacterBody2D, IStateMachine<Player.State>
     }
 
     #endregion
-
-    private StateMachine<State> _stateMachine;
-
-    private Player()
-    {
-        _stateMachine = StateMachine<State>.Create(this);
-    }
 
     #region IStateMachine<State> Members
 
@@ -36,6 +42,8 @@ public partial class Player : CharacterBody2D, IStateMachine<Player.State>
     public void TickPhysics(State currentState, double delta)
     {
     }
+
+    #endregion
 
     #endregion
 }

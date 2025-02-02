@@ -19,9 +19,9 @@ public partial class Test : Node2D
 #if IMGUI
     private void OnImGuiLayout()
     {
-        ImGui.Begin("ImGui on Godot 4");
-        ImGui.Text("hello world");
-        ImGui.End();
+        // ImGui.Begin("ImGui on Godot 4");
+        // ImGui.Text("hello world");
+        // ImGui.End();
     }
 #endif
 }

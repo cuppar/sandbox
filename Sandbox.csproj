@@ -13,6 +13,9 @@
           Condition="'$(Configuration)'!='ExportRelease' And
             $(DefineConstants.Contains('GODOT_PC'))">$(DefineConstants);IMGUI</DefineConstants>
 </PropertyGroup>
+<ItemGroup>
+  <Folder Include="scenes\world\" />
+</ItemGroup>
 <Choose>
   <When Condition="$(DefineConstants.Contains('IMGUI'))">
     <ItemGroup>

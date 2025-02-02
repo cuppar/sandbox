@@ -23,7 +23,7 @@ public partial class TitleScreen : Control
 
     private void OnStartButtonPressed()
     {
-        AutoloadManager.SceneTranslation.ChangeSceneToFileAsync(ScenePaths.TestWorld);
+        AutoloadManager.SceneTranslation.ChangeSceneToFileAsync(ScenePaths.World);
     }
 
 
