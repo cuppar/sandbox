@@ -1,6 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://c6n0s8dw55ph"]
+[gd_scene load_steps=3 format=3 uid="uid://c6n0s8dw55ph"]
 
 [ext_resource type="Script" path="res://scenes/player/Player.cs" id="1_xqtwr"]
+[ext_resource type="Texture2D" uid="uid://hvbl1iq3etfx" path="res://scenes/world/测试玩家.png" id="2_nhnk0"]
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_xqtwr")
+
+[node name="Graphics" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Graphics"]
+scale = Vector2(0.0705716, 0.0705716)
+texture = ExtResource("2_nhnk0")

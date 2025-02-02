@@ -7,11 +7,11 @@
 [node name="World" type="Node2D"]
 script = ExtResource("1_f8b2m")
 
-[node name="Player" parent="." instance=ExtResource("2_x2rjg")]
-
-[node name="Debug" type="Node" parent="."]
+[node name="Debug" type="Node2D" parent="."]
 
 [node name="测试地图" type="Sprite2D" parent="Debug"]
 scale = Vector2(2.08178, 2.08178)
 texture = ExtResource("3_1ptoi")
 centered = false
+
+[node name="Player" parent="." instance=ExtResource("2_x2rjg")]
