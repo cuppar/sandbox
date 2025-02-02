@@ -1,0 +1,50 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="Sandbox"
+run/main_scene="res://ui/title_screen/TitleScreen.tscn"
+config/features=PackedStringArray("4.3", "C#", "GL Compatibility")
+config/icon="res://icon.svg"
+
+[audio]
+
+buses/default_bus_layout="res://assets/sfx/default_bus_layout.tres"
+
+[autoload]
+
+SceneTranslation="*res://addons/scene_translation/scene_translation.tscn"
+SoundManager="*res://autoloads/sound_manager.tscn"
+HUD="*res://ui/hud/hud.tscn"
+ImGuiRoot="*res://addons/imgui-godot/data/ImGuiRoot.tscn"
+
+[display]
+
+window/size/always_on_top=true
+window/stretch/mode="canvas_items"
+
+[dotnet]
+
+project/assembly_name="Sandbox"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/imgui-godot/plugin.cfg", "res://addons/scene_translation/plugin.cfg")
+
+[gui]
+
+theme/custom="res://assets/vfx/default_theme.tres"
+theme/custom_font="res://assets/fonts/Noto_Serif_SC/NotoSerifSC-VariableFont_wght.ttf"
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
