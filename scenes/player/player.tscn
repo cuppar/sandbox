@@ -1,8 +1,9 @@
-[gd_scene load_steps=20 format=3 uid="uid://c6n0s8dw55ph"]
+[gd_scene load_steps=21 format=3 uid="uid://c6n0s8dw55ph"]
 
 [ext_resource type="Script" path="res://scenes/player/Player.cs" id="1_xqtwr"]
 [ext_resource type="Texture2D" uid="uid://dimticijtg1xf" path="res://scenes/player/animations/idle/GirlSample_ReadyIdle_Up.png" id="2_qv8nu"]
 [ext_resource type="Texture2D" uid="uid://cguccd6flumxo" path="res://scenes/player/animations/idle/GirlSample_ReadyIdle_Right.png" id="3_6hjd8"]
+[ext_resource type="AudioStream" uid="uid://ccmfsgx6nuor2" path="res://scenes/player/sfx/walk/walk.wav" id="4_7ir87"]
 [ext_resource type="Texture2D" uid="uid://dirp5p3lj8n81" path="res://scenes/player/animations/idle/GirlSample_ReadyIdle_Down.png" id="4_p4qep"]
 [ext_resource type="Texture2D" uid="uid://dpo7xd2bjidwr" path="res://scenes/player/animations/walk/GirlSample_Walk_Right.png" id="5_bg7a7"]
 [ext_resource type="Texture2D" uid="uid://d2f8dswhjxfx1" path="res://scenes/player/animations/walk/GirlSample_Walk_Up.png" id="6_7lse2"]
@@ -506,10 +507,11 @@ _data = {
 "walk_up": SubResource("Animation_wcjj3")
 }
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("AnimationPlayer", "Graphics")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("AnimationPlayer", "Graphics", "WalkSFX")]
 script = ExtResource("1_xqtwr")
 AnimationPlayer = NodePath("AnimationPlayer")
 Graphics = NodePath("Graphics")
+WalkSFX = NodePath("SFX/Walk")
 
 [node name="Graphics" type="Node2D" parent="."]
 
@@ -517,6 +519,13 @@ Graphics = NodePath("Graphics")
 texture = ExtResource("4_p4qep")
 hframes = 4
 vframes = 4
+
+[node name="SFX" type="Node2D" parent="."]
+
+[node name="Walk" type="AudioStreamPlayer2D" parent="SFX"]
+stream = ExtResource("4_7ir87")
+pitch_scale = 1.5
+bus = &"SFX"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

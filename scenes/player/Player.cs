@@ -42,6 +42,7 @@ public partial class Player : CharacterBody2D, IStateMachine<Player.State>
                 _handleTransitionToIdle();
                 break;
             case State.Move:
+                _handleTransitionToMove();
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(toState), toState, null);
@@ -59,6 +60,7 @@ public partial class Player : CharacterBody2D, IStateMachine<Player.State>
             case State.Idle:
                 if (eMoveDirection != EMoveDirection.None)
                 {
+                    _handleTransitionOutIdle();
                     return State.Move;
                 }
 
@@ -66,6 +68,7 @@ public partial class Player : CharacterBody2D, IStateMachine<Player.State>
             case State.Move:
                 if (eMoveDirection == EMoveDirection.None)
                 {
+                    _handleTransitionOutMove();
                     return State.Idle;
                 }
 
@@ -211,9 +214,25 @@ public partial class Player : CharacterBody2D, IStateMachine<Player.State>
 
     #endregion
 
+    #region 状态转移
+
+    private void _handleTransitionToMove()
+    {
+        WalkSFX.Play();
+    }
+
+    private void _handleTransitionOutMove()
+    {
+        WalkSFX.Stop();
+    }
+
+    #endregion
+
     #endregion
 
     #region idle状态
+
+    #region 状态转移
 
     private void _handleTransitionToIdle()
     {
@@ -226,6 +245,12 @@ public partial class Player : CharacterBody2D, IStateMachine<Player.State>
         AnimationPlayer.Play(animationName);
     }
 
+    private void _handleTransitionOutIdle()
+    {
+    }
+
+    #endregion
+
     #endregion
 
     #endregion
@@ -237,6 +262,7 @@ public partial class Player : CharacterBody2D, IStateMachine<Player.State>
     public AnimationPlayer AnimationPlayer { get; set; } = null!;
 
     [Export] public Node2D Graphics { get; set; } = null!;
+    [ExportSubgroup("SFX")] [Export] public AudioStreamPlayer2D WalkSFX { get; set; } = null!;
 
     #endregion
 }
