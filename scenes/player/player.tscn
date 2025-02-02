@@ -506,8 +506,10 @@ _data = {
 "walk_up": SubResource("Animation_wcjj3")
 }
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("AnimationPlayer", "Graphics")]
 script = ExtResource("1_xqtwr")
+AnimationPlayer = NodePath("AnimationPlayer")
+Graphics = NodePath("Graphics")
 
 [node name="Graphics" type="Node2D" parent="."]
 

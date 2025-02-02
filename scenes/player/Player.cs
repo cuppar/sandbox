@@ -165,16 +165,48 @@ public partial class Player : CharacterBody2D, IStateMachine<Player.State>
 
     #region 移动Tick
 
-    private void _handleMoveTick(double delta)
+    private void _handleMoveTick(double _)
     {
-        var direction = _moveDirectionMap[GetEMoveDirection()];
+        var eMoveDirection = GetEMoveDirection();
+        _handleMoveAnimation(eMoveDirection);
+        var direction = _moveDirectionMap[eMoveDirection];
         Velocity = MoveSpeed * direction;
         MoveAndSlide();
+    }
+
+    private void _handleMoveAnimation(EMoveDirection eMoveDirection)
+    {
+        var animationName = eMoveDirection switch
+        {
+            EMoveDirection.Right or EMoveDirection.Left => "walk_right",
+            EMoveDirection.RightDown or EMoveDirection.LeftDown => "walk_right_down",
+            EMoveDirection.Down => "walk_down",
+            EMoveDirection.Up => "walk_up",
+            EMoveDirection.RightUp or EMoveDirection.LeftUp => "walk_right_up",
+            _ => throw new ArgumentOutOfRangeException(nameof(eMoveDirection), "错误的移动方向")
+        };
+        AnimationPlayer.Play(animationName);
+        Graphics.Scale = Graphics.Scale with { X = Math.Abs(Graphics.Scale.X) * (_isFaceLeft() ? -1 : 1) };
+    }
+
+    private bool _isFaceLeft()
+    {
+        return _moveDirectionMap[GetEMoveDirection()].X < 0;
     }
 
     #endregion
 
     #endregion
+
+    #endregion
+
+    #region Child
+
+    [ExportGroup("ChildDontChange")]
+    [Export]
+    public AnimationPlayer AnimationPlayer { get; set; } = null!;
+
+    [Export] public Node2D Graphics { get; set; } = null!;
 
     #endregion
 }
