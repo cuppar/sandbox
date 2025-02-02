@@ -36,6 +36,16 @@ public partial class Player : CharacterBody2D, IStateMachine<Player.State>
     public void TransitionState(State fromState, State toState)
     {
         GD.Print($"{Name}: {fromState} => {toState}");
+        switch (toState)
+        {
+            case State.Idle:
+                _handleTransitionToIdle();
+                break;
+            case State.Move:
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(toState), toState, null);
+        }
     }
 
     public State GetNextState(State currentState, out bool keepCurrent)
@@ -78,6 +88,8 @@ public partial class Player : CharacterBody2D, IStateMachine<Player.State>
             case State.Move:
                 _handleMoveTick(delta);
                 break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(currentState), currentState, null);
         }
     }
 
@@ -106,6 +118,8 @@ public partial class Player : CharacterBody2D, IStateMachine<Player.State>
 
 
     #region 移动方向相关
+
+    private EMoveDirection _lastEMoveDirection = EMoveDirection.None;
 
     private enum EMoveDirection
     {
@@ -168,6 +182,7 @@ public partial class Player : CharacterBody2D, IStateMachine<Player.State>
     private void _handleMoveTick(double _)
     {
         var eMoveDirection = GetEMoveDirection();
+        _lastEMoveDirection = eMoveDirection;
         _handleMoveAnimation(eMoveDirection);
         var direction = _moveDirectionMap[eMoveDirection];
         Velocity = MoveSpeed * direction;
@@ -195,6 +210,21 @@ public partial class Player : CharacterBody2D, IStateMachine<Player.State>
     }
 
     #endregion
+
+    #endregion
+
+    #region idle状态
+
+    private void _handleTransitionToIdle()
+    {
+        var animationName = _lastEMoveDirection switch
+        {
+            EMoveDirection.Down => "idle_down",
+            EMoveDirection.Up => "idle_up",
+            _ => "idle_right"
+        };
+        AnimationPlayer.Play(animationName);
+    }
 
     #endregion
 
