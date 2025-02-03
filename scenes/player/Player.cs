@@ -8,6 +8,12 @@ namespace Sandbox;
 
 public partial class Player : CharacterBody2D, IStateMachine<Player.State>
 {
+    #region 属性
+
+    [Export] public Camera? Camera { get; set; }
+
+    #endregion
+
     #region 生命周期
 
     private Player()
@@ -53,7 +59,7 @@ public partial class Player : CharacterBody2D, IStateMachine<Player.State>
     {
         keepCurrent = false;
         var eMoveDirection = GetEMoveDirection();
-        GD.Print($"{eMoveDirection}");
+        GD.Print($"玩家移动方向: {eMoveDirection}");
 
         switch (currentState)
         {

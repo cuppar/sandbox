@@ -1,0 +1,47 @@
+[gd_scene load_steps=3 format=3 uid="uid://cq83a16cj76mt"]
+
+[ext_resource type="Script" path="res://scenes/map/Map.cs" id="1_nua0u"]
+[ext_resource type="Texture2D" uid="uid://3b36tp526qca" path="res://scenes/world/测试地图.png" id="2_huiv2"]
+
+[node name="Map" type="Node2D" node_paths=PackedStringArray("RightLimit", "BottomLimit", "LeftLimit", "TopLimit")]
+script = ExtResource("1_nua0u")
+RightLimit = NodePath("Limits/Right")
+BottomLimit = NodePath("Limits/Bottom")
+LeftLimit = NodePath("Limits/Left")
+TopLimit = NodePath("Limits/Top")
+
+[node name="TileMapContainer" type="Node2D" parent="."]
+
+[node name="FloorLayer" type="TileMapLayer" parent="TileMapContainer"]
+
+[node name="CollisionLayer" type="TileMapLayer" parent="TileMapContainer"]
+
+[node name="DecorateLayer" type="TileMapLayer" parent="TileMapContainer"]
+
+[node name="测试地图" type="Sprite2D" parent="TileMapContainer"]
+position = Vector2(597.75, 345.25)
+scale = Vector2(2.44493, 1.98949)
+texture = ExtResource("2_huiv2")
+
+[node name="Limits" type="Node2D" parent="."]
+metadata/_edit_lock_ = true
+
+[node name="Right" type="Marker2D" parent="Limits"]
+position = Vector2(1295, 253)
+gizmo_extents = 50.0
+metadata/_edit_lock_ = true
+
+[node name="Bottom" type="Marker2D" parent="Limits"]
+position = Vector2(567, 769)
+gizmo_extents = 50.0
+metadata/_edit_lock_ = true
+
+[node name="Left" type="Marker2D" parent="Limits"]
+position = Vector2(-97, 273)
+gizmo_extents = 50.0
+metadata/_edit_lock_ = true
+
+[node name="Top" type="Marker2D" parent="Limits"]
+position = Vector2(623, -77)
+gizmo_extents = 50.0
+metadata/_edit_lock_ = true

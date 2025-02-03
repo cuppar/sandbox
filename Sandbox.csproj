@@ -14,6 +14,7 @@
             $(DefineConstants.Contains('GODOT_PC'))">$(DefineConstants);IMGUI</DefineConstants>
 </PropertyGroup>
 <ItemGroup>
+  <Folder Include="scenes\map\" />
   <Folder Include="scenes\world\" />
 </ItemGroup>
 <Choose>

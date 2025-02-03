@@ -1,43 +1,29 @@
-[gd_scene load_steps=5 format=3 uid="uid://wix1t4vcr2m"]
+[gd_scene load_steps=6 format=3 uid="uid://wix1t4vcr2m"]
 
 [ext_resource type="Script" path="res://scenes/world/World.cs" id="1_f8b2m"]
 [ext_resource type="PackedScene" uid="uid://c6n0s8dw55ph" path="res://scenes/player/player.tscn" id="2_x2rjg"]
 [ext_resource type="Texture2D" uid="uid://3b36tp526qca" path="res://scenes/world/测试地图.png" id="3_1ptoi"]
+[ext_resource type="PackedScene" uid="uid://cq83a16cj76mt" path="res://scenes/map/Map.tscn" id="3_nekf2"]
 [ext_resource type="PackedScene" uid="uid://bu0kr8o5rl0lq" path="res://prefabs/camera/camera.tscn" id="4_yctnx"]
 
-[node name="World" type="Node2D"]
+[node name="World" type="Node2D" node_paths=PackedStringArray("Player")]
 script = ExtResource("1_f8b2m")
+Player = NodePath("Player")
 
 [node name="Debug" type="Node2D" parent="."]
+visible = false
 
 [node name="测试地图" type="Sprite2D" parent="Debug"]
 scale = Vector2(2.08178, 2.08178)
 texture = ExtResource("3_1ptoi")
 centered = false
 
-[node name="Player" parent="." instance=ExtResource("2_x2rjg")]
+[node name="MapContainer" type="Node2D" parent="."]
+
+[node name="Map" parent="MapContainer" instance=ExtResource("3_nekf2")]
+
+[node name="Player" parent="." node_paths=PackedStringArray("Camera") instance=ExtResource("2_x2rjg")]
 position = Vector2(593, 317)
+Camera = NodePath("Camera")
 
-[node name="Camera" parent="Player" node_paths=PackedStringArray("LeftLimit", "RightLimit", "TopLimit", "BottomLimit") instance=ExtResource("4_yctnx")]
-LeftLimit = NodePath("../../Limits/Left")
-RightLimit = NodePath("../../Limits/Right")
-TopLimit = NodePath("../../Limits/Top")
-BottomLimit = NodePath("../../Limits/Bottom")
-
-[node name="Limits" type="Node2D" parent="."]
-
-[node name="Right" type="Marker2D" parent="Limits"]
-position = Vector2(1188, 265)
-gizmo_extents = 100.0
-
-[node name="Bottom" type="Marker2D" parent="Limits"]
-position = Vector2(572, 896)
-gizmo_extents = 100.0
-
-[node name="Left" type="Marker2D" parent="Limits"]
-position = Vector2(0, 306)
-gizmo_extents = 100.0
-
-[node name="Top" type="Marker2D" parent="Limits"]
-position = Vector2(631, 0)
-gizmo_extents = 100.0
+[node name="Camera" parent="Player" instance=ExtResource("4_yctnx")]
