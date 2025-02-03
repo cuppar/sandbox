@@ -509,7 +509,6 @@ _data = {
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("AnimationPlayer", "Graphics", "WalkSFX")]
 script = ExtResource("1_xqtwr")
-MoveSpeed = 150.0
 AnimationPlayer = NodePath("AnimationPlayer")
 Graphics = NodePath("Graphics")
 WalkSFX = NodePath("SFX/Walk")
