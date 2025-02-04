@@ -35,7 +35,7 @@ public partial class StateMachine<TState> : Node
 
     public override async void _Ready()
     {
-        await ToSignal(Owner, SignalName.Ready);
+        await ToSignal(Owner, Node.SignalName.Ready);
         CurrentState = Enum.GetValues<TState>()[0];
     }
 

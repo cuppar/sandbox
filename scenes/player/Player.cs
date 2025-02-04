@@ -10,7 +10,62 @@ public partial class Player : CharacterBody2D, IStateMachine<Player.State>
 {
     #region 属性
 
+    #region 公开属性
+
     [Export] public Camera? Camera { get; set; }
+
+    #region CurrentFaceDirection
+
+    private EFaceDirection _currentEFaceDirection = EFaceDirection.Right;
+
+    [Export]
+    public EFaceDirection CurrentEFaceDirection
+    {
+        get => _currentEFaceDirection;
+        set => SetCurrentEFaceDirection(value);
+    }
+
+    private async void SetCurrentEFaceDirection(EFaceDirection value)
+    {
+        await this.EnsureReadyAsync();
+        _currentEFaceDirection = value;
+        GD.Print($"SetCurrentEFaceDirection: {value}");
+    }
+
+    #endregion
+
+    public enum EFaceDirection
+    {
+        Right,
+        Down,
+        Left,
+        Up,
+    }
+
+    #endregion
+
+    #endregion
+
+    #region 方法
+
+    #region 私有方法
+
+    private void _flipH()
+    {
+        Scale = Scale with { X = -Scale.X };
+    }
+
+    private bool _isHFaceDirectionChange()
+    {
+        return IsFaceLeft(_lastFrameEFaceDirection) != IsFaceLeft(CurrentEFaceDirection);
+
+        bool IsFaceLeft(EFaceDirection aEFaceDirection)
+        {
+            return aEFaceDirection == EFaceDirection.Left;
+        }
+    }
+
+    #endregion
 
     #endregion
 
@@ -20,6 +75,28 @@ public partial class Player : CharacterBody2D, IStateMachine<Player.State>
     {
         _stateMachine = StateMachine<State>.Create(this);
     }
+
+
+    #region temp
+
+    private double _time;
+
+    public override void _Process(double delta)
+    {
+        base._Process(delta);
+        _time += delta;
+        if (_time > 3)
+        {
+            // do
+            CurrentEFaceDirection = CurrentEFaceDirection == EFaceDirection.Left
+                ? EFaceDirection.Right
+                : EFaceDirection.Left;
+            // end do
+            _time = 0;
+        }
+    }
+
+    #endregion
 
     #endregion
 
@@ -93,6 +170,7 @@ public partial class Player : CharacterBody2D, IStateMachine<Player.State>
         switch (currentState)
         {
             case State.Idle:
+                _handleIdleTick(delta);
                 break;
             case State.Move:
                 _handleMoveTick(delta);
@@ -127,8 +205,6 @@ public partial class Player : CharacterBody2D, IStateMachine<Player.State>
 
 
     #region 移动方向相关
-
-    private EMoveDirection _lastEMoveDirection = EMoveDirection.Right;
 
     private enum EMoveDirection
     {
@@ -184,16 +260,6 @@ public partial class Player : CharacterBody2D, IStateMachine<Player.State>
         }
     }
 
-    private bool _isMoveFaceLeft(EMoveDirection eMoveDirection)
-    {
-        return _moveDirectionMap[eMoveDirection].X < 0;
-    }
-
-    private bool _isHMoveDirectionChange()
-    {
-        return _isMoveFaceLeft(GetEMoveDirection()) != _isMoveFaceLeft(_lastEMoveDirection);
-    }
-
     #endregion
 
     #region 移动Tick
@@ -201,29 +267,46 @@ public partial class Player : CharacterBody2D, IStateMachine<Player.State>
     private void _handleMoveTick(double _)
     {
         var eMoveDirection = GetEMoveDirection();
-        _handleMoveAnimation(eMoveDirection);
-        var direction = _moveDirectionMap[eMoveDirection];
-        Velocity = MoveSpeed * direction;
-        MoveAndSlide();
-        _lastEMoveDirection = eMoveDirection;
-    }
+        SetFaceDirection();
+        HandleMoveAnimation();
+        HandleMove();
+        _lastFrameEFaceDirection = CurrentEFaceDirection;
 
-    private void _handleMoveAnimation(EMoveDirection eMoveDirection)
-    {
-        var animationName = eMoveDirection switch
+        return;
+
+        void SetFaceDirection()
         {
-            EMoveDirection.Right or EMoveDirection.Left => "walk_right",
-            EMoveDirection.RightDown or EMoveDirection.LeftDown => "walk_right_down",
-            EMoveDirection.Down => "walk_down",
-            EMoveDirection.Up => "walk_up",
-            EMoveDirection.RightUp or EMoveDirection.LeftUp => "walk_right_up",
-            _ => throw new ArgumentOutOfRangeException(nameof(eMoveDirection), "错误的移动方向")
-        };
-        AnimationPlayer.Play(animationName);
-        if (_isHMoveDirectionChange())
+            CurrentEFaceDirection = eMoveDirection switch
+            {
+                EMoveDirection.Right or EMoveDirection.RightDown or EMoveDirection.RightUp => EFaceDirection.Right,
+                EMoveDirection.Left or EMoveDirection.LeftDown or EMoveDirection.LeftUp => EFaceDirection.Left,
+                EMoveDirection.Down => EFaceDirection.Down,
+                EMoveDirection.Up => EFaceDirection.Up,
+                _ => throw new ArgumentOutOfRangeException(nameof(eMoveDirection), eMoveDirection, null)
+            };
+        }
+
+        void HandleMoveAnimation()
         {
-            Scale = Scale with { Y = Math.Abs(Scale.Y) * (_isMoveFaceLeft(eMoveDirection) ? -1 : 1) };
-            Rotation += _isMoveFaceLeft(eMoveDirection) ? +(float)Math.PI : -(float)Math.PI;
+            var animationName = eMoveDirection switch
+            {
+                EMoveDirection.Right or EMoveDirection.Left => "walk_right",
+                EMoveDirection.RightDown or EMoveDirection.LeftDown => "walk_right_down",
+                EMoveDirection.Down => "walk_down",
+                EMoveDirection.Up => "walk_up",
+                EMoveDirection.RightUp or EMoveDirection.LeftUp => "walk_right_up",
+                _ => throw new ArgumentOutOfRangeException(nameof(eMoveDirection), "错误的移动方向")
+            };
+            AnimationPlayer.Play(animationName);
+            if (_isHFaceDirectionChange())
+                _flipH();
+        }
+
+        void HandleMove()
+        {
+            var direction = _moveDirectionMap[eMoveDirection];
+            Velocity = MoveSpeed * direction;
+            MoveAndSlide();
         }
     }
 
@@ -251,17 +334,38 @@ public partial class Player : CharacterBody2D, IStateMachine<Player.State>
 
     private void _handleTransitionToIdle()
     {
-        var animationName = _lastEMoveDirection switch
-        {
-            EMoveDirection.Down => "idle_down",
-            EMoveDirection.Up => "idle_up",
-            _ => "idle_right"
-        };
-        AnimationPlayer.Play(animationName);
     }
 
     private void _handleTransitionOutIdle()
     {
+    }
+
+    #endregion
+
+    #region idle Tick
+
+    private EFaceDirection _lastFrameEFaceDirection = EFaceDirection.Right;
+
+    private void _handleIdleTick(double _)
+    {
+        HandleIdleAnimation();
+        _lastFrameEFaceDirection = CurrentEFaceDirection;
+
+        return;
+
+        void HandleIdleAnimation()
+        {
+            var animationName = CurrentEFaceDirection switch
+            {
+                EFaceDirection.Right or EFaceDirection.Left => "idle_right",
+                EFaceDirection.Down => "idle_down",
+                EFaceDirection.Up => "idle_up",
+                _ => throw new ArgumentOutOfRangeException()
+            };
+            AnimationPlayer.Play(animationName);
+            if (_isHFaceDirectionChange())
+                _flipH();
+        }
     }
 
     #endregion

@@ -15,7 +15,7 @@
 size = Vector2(169, 59)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4gfqj"]
-size = Vector2(40, 18)
+size = Vector2(136, 18)
 
 [sub_resource type="Animation" id="Animation_jiax2"]
 length = 0.001
@@ -538,6 +538,7 @@ metadata/_edit_group_ = true
 shape = SubResource("RectangleShape2D_d7d08")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(48, 0)
 shape = SubResource("RectangleShape2D_4gfqj")
 
 [node name="SFX" type="Node2D" parent="."]
