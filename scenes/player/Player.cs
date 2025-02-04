@@ -128,7 +128,7 @@ public partial class Player : CharacterBody2D, IStateMachine<Player.State>
 
     #region 移动方向相关
 
-    private EMoveDirection _lastEMoveDirection = EMoveDirection.None;
+    private EMoveDirection _lastEMoveDirection = EMoveDirection.Right;
 
     private enum EMoveDirection
     {
@@ -184,6 +184,16 @@ public partial class Player : CharacterBody2D, IStateMachine<Player.State>
         }
     }
 
+    private bool _isMoveFaceLeft(EMoveDirection eMoveDirection)
+    {
+        return _moveDirectionMap[eMoveDirection].X < 0;
+    }
+
+    private bool _isHMoveDirectionChange()
+    {
+        return _isMoveFaceLeft(GetEMoveDirection()) != _isMoveFaceLeft(_lastEMoveDirection);
+    }
+
     #endregion
 
     #region 移动Tick
@@ -191,11 +201,11 @@ public partial class Player : CharacterBody2D, IStateMachine<Player.State>
     private void _handleMoveTick(double _)
     {
         var eMoveDirection = GetEMoveDirection();
-        _lastEMoveDirection = eMoveDirection;
         _handleMoveAnimation(eMoveDirection);
         var direction = _moveDirectionMap[eMoveDirection];
         Velocity = MoveSpeed * direction;
         MoveAndSlide();
+        _lastEMoveDirection = eMoveDirection;
     }
 
     private void _handleMoveAnimation(EMoveDirection eMoveDirection)
@@ -210,12 +220,11 @@ public partial class Player : CharacterBody2D, IStateMachine<Player.State>
             _ => throw new ArgumentOutOfRangeException(nameof(eMoveDirection), "错误的移动方向")
         };
         AnimationPlayer.Play(animationName);
-        Graphics.Scale = Graphics.Scale with { X = Math.Abs(Graphics.Scale.X) * (_isFaceLeft() ? -1 : 1) };
-    }
-
-    private bool _isFaceLeft()
-    {
-        return _moveDirectionMap[GetEMoveDirection()].X < 0;
+        if (_isHMoveDirectionChange())
+        {
+            Scale = Scale with { Y = Math.Abs(Scale.Y) * (_isMoveFaceLeft(eMoveDirection) ? -1 : 1) };
+            Rotation += _isMoveFaceLeft(eMoveDirection) ? +(float)Math.PI : -(float)Math.PI;
+        }
     }
 
     #endregion
@@ -267,7 +276,6 @@ public partial class Player : CharacterBody2D, IStateMachine<Player.State>
     [Export]
     public AnimationPlayer AnimationPlayer { get; set; } = null!;
 
-    [Export] public Node2D Graphics { get; set; } = null!;
     [ExportSubgroup("SFX")] [Export] public AudioStreamPlayer2D WalkSFX { get; set; } = null!;
 
     #endregion

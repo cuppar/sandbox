@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://c6n0s8dw55ph"]
+[gd_scene load_steps=23 format=3 uid="uid://c6n0s8dw55ph"]
 
 [ext_resource type="Script" path="res://scenes/player/Player.cs" id="1_xqtwr"]
 [ext_resource type="Texture2D" uid="uid://dimticijtg1xf" path="res://scenes/player/animations/idle/GirlSample_ReadyIdle_Up.png" id="2_qv8nu"]
@@ -10,6 +10,12 @@
 [ext_resource type="Texture2D" uid="uid://c6pidlrfn7xce" path="res://scenes/player/animations/walk/GirlSample_Walk_Down.png" id="7_uiotd"]
 [ext_resource type="Texture2D" uid="uid://ci7hpiciwpm6y" path="res://scenes/player/animations/walk/GirlSample_Walk_UpRight.png" id="8_cke18"]
 [ext_resource type="Texture2D" uid="uid://c122n8qg2xgsa" path="res://scenes/player/animations/walk/GirlSample_Walk_DownRight.png" id="9_xcwoa"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d7d08"]
+size = Vector2(169, 59)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4gfqj"]
+size = Vector2(40, 18)
 
 [sub_resource type="Animation" id="Animation_jiax2"]
 length = 0.001
@@ -507,18 +513,32 @@ _data = {
 "walk_up": SubResource("Animation_wcjj3")
 }
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("AnimationPlayer", "Graphics", "WalkSFX")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("AnimationPlayer", "WalkSFX")]
+collision_layer = 2
+motion_mode = 1
 script = ExtResource("1_xqtwr")
 AnimationPlayer = NodePath("AnimationPlayer")
-Graphics = NodePath("Graphics")
 WalkSFX = NodePath("SFX/Walk")
 
 [node name="Graphics" type="Node2D" parent="."]
+y_sort_enabled = true
+position = Vector2(0, -29)
+metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Graphics"]
 texture = ExtResource("4_p4qep")
 hframes = 4
 vframes = 4
+
+[node name="Area2D" type="Area2D" parent="Graphics"]
+position = Vector2(85, -30)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Graphics/Area2D"]
+shape = SubResource("RectangleShape2D_d7d08")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_4gfqj")
 
 [node name="SFX" type="Node2D" parent="."]
 

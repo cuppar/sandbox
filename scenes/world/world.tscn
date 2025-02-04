@@ -6,12 +6,14 @@
 [ext_resource type="PackedScene" uid="uid://bu0kr8o5rl0lq" path="res://prefabs/camera/camera.tscn" id="4_yctnx"]
 
 [node name="World" type="Node2D" node_paths=PackedStringArray("Player")]
+y_sort_enabled = true
 script = ExtResource("1_f8b2m")
 Player = NodePath("Player")
 
 [node name="Debug" type="Node2D" parent="."]
 
 [node name="MapContainer" type="Node2D" parent="."]
+y_sort_enabled = true
 
 [node name="Map" parent="MapContainer" instance=ExtResource("3_nekf2")]
 
