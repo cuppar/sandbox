@@ -14,8 +14,8 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d7d08"]
 size = Vector2(169, 59)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_4gfqj"]
-size = Vector2(136, 18)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jnuxr"]
+height = 38.0
 
 [sub_resource type="Animation" id="Animation_jiax2"]
 length = 0.001
@@ -538,8 +538,8 @@ metadata/_edit_group_ = true
 shape = SubResource("RectangleShape2D_d7d08")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(48, 0)
-shape = SubResource("RectangleShape2D_4gfqj")
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_jnuxr")
 
 [node name="SFX" type="Node2D" parent="."]
 
