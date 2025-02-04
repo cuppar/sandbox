@@ -8,11 +8,17 @@ namespace Sandbox;
 
 public partial class Player : CharacterBody2D, IStateMachine<Player.State>
 {
-    #region 属性
+    #region 相机
 
-    #region 公开属性
-
+    // 让相机成为Player的属性，方便全局设置相机边界等
     [Export] public Camera? Camera { get; set; }
+
+    #endregion
+
+    #region 玩家朝向
+
+    // 初始值必须为Right,与贴图默认方向一致
+    private EFaceDirection _lastFrameEFaceDirection = EFaceDirection.Right;
 
     #region CurrentFaceDirection
 
@@ -29,7 +35,6 @@ public partial class Player : CharacterBody2D, IStateMachine<Player.State>
     {
         await this.EnsureReadyAsync();
         _currentEFaceDirection = value;
-        GD.Print($"SetCurrentEFaceDirection: {value}");
     }
 
     #endregion
@@ -42,30 +47,28 @@ public partial class Player : CharacterBody2D, IStateMachine<Player.State>
         Up,
     }
 
-    #endregion
-
-    #endregion
-
-    #region 方法
-
-    #region 私有方法
-
-    private void _flipH()
+    private void _resolveFlipH()
     {
-        Scale = Scale with { X = -Scale.X };
-    }
+        if (IsHFaceDirectionChange())
+            FlipH();
 
-    private bool _isHFaceDirectionChange()
-    {
-        return IsFaceLeft(_lastFrameEFaceDirection) != IsFaceLeft(CurrentEFaceDirection);
+        return;
+
+        bool IsHFaceDirectionChange()
+        {
+            return IsFaceLeft(_lastFrameEFaceDirection) != IsFaceLeft(CurrentEFaceDirection);
+        }
 
         bool IsFaceLeft(EFaceDirection aEFaceDirection)
         {
             return aEFaceDirection == EFaceDirection.Left;
         }
-    }
 
-    #endregion
+        void FlipH()
+        {
+            Scale = Scale with { X = -Scale.X };
+        }
+    }
 
     #endregion
 
@@ -76,27 +79,12 @@ public partial class Player : CharacterBody2D, IStateMachine<Player.State>
         _stateMachine = StateMachine<State>.Create(this);
     }
 
-
-    #region temp
-
-    private double _time;
-
-    public override void _Process(double delta)
+    public override void _PhysicsProcess(double delta)
     {
-        base._Process(delta);
-        _time += delta;
-        if (_time > 3)
-        {
-            // do
-            CurrentEFaceDirection = CurrentEFaceDirection == EFaceDirection.Left
-                ? EFaceDirection.Right
-                : EFaceDirection.Left;
-            // end do
-            _time = 0;
-        }
+        base._PhysicsProcess(delta);
+        _resolveFlipH();
+        _lastFrameEFaceDirection = CurrentEFaceDirection;
     }
-
-    #endregion
 
     #endregion
 
@@ -270,7 +258,6 @@ public partial class Player : CharacterBody2D, IStateMachine<Player.State>
         SetFaceDirection();
         HandleMoveAnimation();
         HandleMove();
-        _lastFrameEFaceDirection = CurrentEFaceDirection;
 
         return;
 
@@ -282,7 +269,7 @@ public partial class Player : CharacterBody2D, IStateMachine<Player.State>
                 EMoveDirection.Left or EMoveDirection.LeftDown or EMoveDirection.LeftUp => EFaceDirection.Left,
                 EMoveDirection.Down => EFaceDirection.Down,
                 EMoveDirection.Up => EFaceDirection.Up,
-                _ => throw new ArgumentOutOfRangeException(nameof(eMoveDirection), eMoveDirection, null)
+                _ => throw new ArgumentOutOfRangeException(nameof(eMoveDirection), eMoveDirection, "错误的移动方向")
             };
         }
 
@@ -295,11 +282,9 @@ public partial class Player : CharacterBody2D, IStateMachine<Player.State>
                 EMoveDirection.Down => "walk_down",
                 EMoveDirection.Up => "walk_up",
                 EMoveDirection.RightUp or EMoveDirection.LeftUp => "walk_right_up",
-                _ => throw new ArgumentOutOfRangeException(nameof(eMoveDirection), "错误的移动方向")
+                _ => throw new ArgumentOutOfRangeException(nameof(eMoveDirection), eMoveDirection, "错误的移动方向")
             };
             AnimationPlayer.Play(animationName);
-            if (_isHFaceDirectionChange())
-                _flipH();
         }
 
         void HandleMove()
@@ -344,12 +329,9 @@ public partial class Player : CharacterBody2D, IStateMachine<Player.State>
 
     #region idle Tick
 
-    private EFaceDirection _lastFrameEFaceDirection = EFaceDirection.Right;
-
     private void _handleIdleTick(double _)
     {
         HandleIdleAnimation();
-        _lastFrameEFaceDirection = CurrentEFaceDirection;
 
         return;
 
@@ -363,8 +345,6 @@ public partial class Player : CharacterBody2D, IStateMachine<Player.State>
                 _ => throw new ArgumentOutOfRangeException()
             };
             AnimationPlayer.Play(animationName);
-            if (_isHFaceDirectionChange())
-                _flipH();
         }
     }
 
