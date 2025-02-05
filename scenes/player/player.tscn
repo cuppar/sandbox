@@ -15,7 +15,7 @@
 size = Vector2(169, 59)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_74du7"]
-radius = 15.0
+radius = 25.0
 
 [sub_resource type="Animation" id="Animation_jiax2"]
 length = 0.001
@@ -521,6 +521,7 @@ script = ExtResource("1_xqtwr")
 MoveSpeed = 200.0
 AnimationPlayer = NodePath("AnimationPlayer")
 WalkSFX = NodePath("SFX/Walk")
+metadata/_edit_vertical_guides_ = [15.0]
 
 [node name="Graphics" type="Node2D" parent="."]
 y_sort_enabled = true
