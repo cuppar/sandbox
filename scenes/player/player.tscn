@@ -14,8 +14,8 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d7d08"]
 size = Vector2(169, 59)
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jnuxr"]
-height = 38.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_74du7"]
+radius = 15.0
 
 [sub_resource type="Animation" id="Animation_jiax2"]
 length = 0.001
@@ -514,9 +514,11 @@ _data = {
 }
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("AnimationPlayer", "WalkSFX")]
+scale = Vector2(0.6, 0.6)
 collision_layer = 2
 motion_mode = 1
 script = ExtResource("1_xqtwr")
+MoveSpeed = 200.0
 AnimationPlayer = NodePath("AnimationPlayer")
 WalkSFX = NodePath("SFX/Walk")
 
@@ -539,7 +541,7 @@ shape = SubResource("RectangleShape2D_d7d08")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = 1.5708
-shape = SubResource("CapsuleShape2D_jnuxr")
+shape = SubResource("CircleShape2D_74du7")
 
 [node name="SFX" type="Node2D" parent="."]
 
