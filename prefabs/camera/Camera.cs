@@ -67,7 +67,33 @@ public partial class Camera : Camera2D
     }
 
     #endregion
+    
+    #region 缩放
 
+    private Vector2 MinZoom { get; set; } = new(0.3f, 0.3f);
+    private Vector2 MaxZoom { get; set; } = new(3f, 3f);
+    private float ZoomStep { get; set; } = 0.1f;
+
+    private void _handleZoomOut()
+    {
+        Zoom = Zoom with
+        {
+            X = float.Max(MinZoom.X, Zoom.X - ZoomStep),
+            Y = float.Max(MinZoom.Y, Zoom.Y - ZoomStep)
+        };
+    }
+
+    private void _handleZoomIn()
+    {
+        Zoom = Zoom with
+        {
+            X = float.Min(MaxZoom.X, Zoom.X + ZoomStep),
+            Y = float.Min(MaxZoom.Y, Zoom.Y + ZoomStep)
+        };
+    }
+
+    #endregion
+    
     #region 震屏
 
     [ExportGroup("Shake Screen")] [Export] public float Strength { get; set; }
@@ -100,6 +126,19 @@ public partial class Camera : Camera2D
         base._Process(delta);
         _tickShake(delta);
     }
+    
+    
+    #region 用户输入
+
+    public override void _UnhandledInput(InputEvent @event)
+    {
+        base._UnhandledInput(@event);
+        if (@event.IsActionPressed("zoom_in")) _handleZoomIn();
+
+        if (@event.IsActionPressed("zoom_out")) _handleZoomOut();
+    }
+
+    #endregion
 
     #endregion
 }
