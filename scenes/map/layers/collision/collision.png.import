@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b4ic6t0gj6g7s"
-path="res://.godot/imported/TX Props.png-04e173d93c59c410a5ce712b3117ae0d.ctex"
+uid="uid://vac07tt2xnqp"
+path="res://.godot/imported/collision.png-0d3ff9efe0cb1a5aa120bd5ca5f6528b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/map/assets/collision/TX Props.png"
-dest_files=["res://.godot/imported/TX Props.png-04e173d93c59c410a5ce712b3117ae0d.ctex"]
+source_file="res://scenes/map/layers/collision/collision.png"
+dest_files=["res://.godot/imported/collision.png-0d3ff9efe0cb1a5aa120bd5ca5f6528b.ctex"]
 
 [params]
 

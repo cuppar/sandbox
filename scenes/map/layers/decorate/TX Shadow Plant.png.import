@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://vac07tt2xnqp"
-path="res://.godot/imported/collision.png-15aa19eccf5e9ba18ddf197887e2eeb0.ctex"
+uid="uid://bjeq2sln62vbr"
+path="res://.godot/imported/TX Shadow Plant.png-9c7ec5ad35977435c4da9e827e987f78.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/map/assets/collision/collision.png"
-dest_files=["res://.godot/imported/collision.png-15aa19eccf5e9ba18ddf197887e2eeb0.ctex"]
+source_file="res://scenes/map/layers/decorate/TX Shadow Plant.png"
+dest_files=["res://.godot/imported/TX Shadow Plant.png-9c7ec5ad35977435c4da9e827e987f78.ctex"]
 
 [params]
 

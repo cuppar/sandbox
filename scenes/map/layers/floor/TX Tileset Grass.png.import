@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bcf12eylgukch"
-path="res://.godot/imported/TX Tileset Wall.png-39c0964be4823e4d9e4effb35f631033.ctex"
+uid="uid://cceaq51hp8j5d"
+path="res://.godot/imported/TX Tileset Grass.png-692698eda180265aa7397776befa067c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/map/assets/collision/TX Tileset Wall.png"
-dest_files=["res://.godot/imported/TX Tileset Wall.png-39c0964be4823e4d9e4effb35f631033.ctex"]
+source_file="res://scenes/map/layers/floor/TX Tileset Grass.png"
+dest_files=["res://.godot/imported/TX Tileset Grass.png-692698eda180265aa7397776befa067c.ctex"]
 
 [params]
 

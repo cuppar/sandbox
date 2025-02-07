@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cu4c4msuup8i3"
-path="res://.godot/imported/TX Plant.png-bafb7b5c6bc976416c8befa0acd8d63c.ctex"
+uid="uid://cc8aca1iw2pu8"
+path="res://.godot/imported/TX Struct.png-d83c2a22852a56dc9c30e452f919b3da.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/map/assets/decorate/TX Plant.png"
-dest_files=["res://.godot/imported/TX Plant.png-bafb7b5c6bc976416c8befa0acd8d63c.ctex"]
+source_file="res://scenes/map/layers/collision/TX Struct.png"
+dest_files=["res://.godot/imported/TX Struct.png-d83c2a22852a56dc9c30e452f919b3da.ctex"]
 
 [params]
 

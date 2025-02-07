@@ -1,7 +1,7 @@
 [gd_resource type="TileSet" load_steps=5 format=3 uid="uid://4un8t822hnso"]
 
-[ext_resource type="Texture2D" uid="uid://cceaq51hp8j5d" path="res://scenes/map/assets/floor/TX Tileset Grass.png" id="1_ox4jn"]
-[ext_resource type="Texture2D" uid="uid://cogluwwdjqkf2" path="res://scenes/map/assets/floor/TX Tileset Stone Ground.png" id="2_ww4tf"]
+[ext_resource type="Texture2D" uid="uid://cceaq51hp8j5d" path="res://scenes/map/layers/floor/TX Tileset Grass.png" id="1_ox4jn"]
+[ext_resource type="Texture2D" uid="uid://cogluwwdjqkf2" path="res://scenes/map/layers/floor/TX Tileset Stone Ground.png" id="2_ww4tf"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2htr5"]
 resource_name = "草地"
