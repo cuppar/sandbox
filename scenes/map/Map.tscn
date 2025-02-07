@@ -139,7 +139,6 @@ tile_set = ExtResource("3_ub0lj")
 
 [node name="Collision" type="TileMapLayer" parent="TileMapContainer/Layer2/Collision"]
 y_sort_enabled = true
-tile_map_data = PackedByteArray("AAAPAAkABgAJAAQAAAAQAAkABgAJAAQAAAARAAkABgAJAAQAAAASAAkABgAJAAQAAAATAAkABgAJAAQAAAAUAAkABgAJAAQAAAAVAAkABgAJAAQAAAAWAAkABgAJAAQAAAAPAAUABgAJAAQAAAAQAAUABgAJAAQAAAARAAUABgAJAAQAAAASAAUABgAJAAQAAAATAAYABgAJAAQAAAAUAAYABgAJAAQAAAAVAAYABgAJAAQAAAA=")
 tile_set = ExtResource("3_ub0lj")
 
 [node name="Decorate" type="Node2D" parent="TileMapContainer/Layer2"]
@@ -151,7 +150,7 @@ metadata/_edit_lock_ = true
 y_sort_enabled = true
 
 [node name="Limits" type="Node2D" parent="."]
-z_index = 1
+z_index = 100
 metadata/_edit_lock_ = true
 
 [node name="Right" type="Marker2D" parent="Limits"]
