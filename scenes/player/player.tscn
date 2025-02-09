@@ -12,7 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://c122n8qg2xgsa" path="res://scenes/player/animations/walk/GirlSample_Walk_DownRight.png" id="9_xcwoa"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d7d08"]
-size = Vector2(169, 59)
+size = Vector2(66.6667, 123.333)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_74du7"]
 radius = 23.3928
@@ -513,7 +513,7 @@ _data = {
 "walk_up": SubResource("Animation_wcjj3")
 }
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("AnimationPlayer", "WalkSFX")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("AnimationPlayer", "GraphicsArea", "WalkSFX")]
 scale = Vector2(0.6, 0.6)
 collision_layer = 2
 collision_mask = 5
@@ -522,13 +522,17 @@ safe_margin = 4.0
 script = ExtResource("1_xqtwr")
 MoveSpeed = 200.0
 AnimationPlayer = NodePath("AnimationPlayer")
+GraphicsArea = NodePath("Graphics/Area2D")
 WalkSFX = NodePath("SFX/Walk")
-metadata/_edit_vertical_guides_ = [-14.0, 14.0]
+metadata/_edit_vertical_guides_ = [-20.0, 20.0]
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
 
 [node name="Graphics" type="Node2D" parent="."]
 y_sort_enabled = true
 position = Vector2(0, -29)
 metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Graphics"]
 texture = ExtResource("4_p4qep")
@@ -536,10 +540,9 @@ hframes = 4
 vframes = 4
 
 [node name="Area2D" type="Area2D" parent="Graphics"]
-position = Vector2(85, -30)
-metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Graphics/Area2D"]
+position = Vector2(1.14242e-06, -19.3333)
 shape = SubResource("RectangleShape2D_d7d08")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

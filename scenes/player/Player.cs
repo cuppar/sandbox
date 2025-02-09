@@ -360,6 +360,7 @@ public partial class Player : CharacterBody2D, IStateMachine<Player.State>
     [Export]
     public AnimationPlayer AnimationPlayer { get; set; } = null!;
 
+    [Export] public Area2D GraphicsArea { get; set; } = null!;
     [ExportSubgroup("SFX")] [Export] public AudioStreamPlayer2D WalkSFX { get; set; } = null!;
 
     #endregion

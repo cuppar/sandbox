@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://ckpdsp4y6lwps"]
+
+[ext_resource type="Script" path="res://scenes/map/layers/wall/Stair.cs" id="1_meitp"]
+[ext_resource type="Texture2D" uid="uid://dokq6ychtkghd" path="res://scenes/map/layers/wall/wall.png" id="2_hdedm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_85u3u"]
+size = Vector2(64, 1)
+
+[node name="StairLeftRight0" type="Node2D" node_paths=PackedStringArray("PlayerDetectArea")]
+script = ExtResource("1_meitp")
+PlayerDetectArea = NodePath("PlayerDetectArea")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(16, 32)
+texture = ExtResource("2_hdedm")
+region_enabled = true
+region_rect = Rect2(0, 256, 64, 96)
+
+[node name="PlayerDetectArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetectArea"]
+position = Vector2(16, -15.5)
+shape = SubResource("RectangleShape2D_85u3u")

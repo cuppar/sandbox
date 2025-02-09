@@ -20,6 +20,5 @@ y_sort_enabled = true
 [node name="Player" parent="." node_paths=PackedStringArray("Camera") instance=ExtResource("2_x2rjg")]
 position = Vector2(548, 703)
 Camera = NodePath("Camera")
-metadata/_edit_group_ = true
 
 [node name="Camera" parent="Player" instance=ExtResource("4_yctnx")]
