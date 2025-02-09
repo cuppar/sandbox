@@ -1,5 +1,6 @@
 using Godot;
 using Sandbox.Globals;
+using Sandbox.Globals.Extensions;
 
 namespace Sandbox.MapNs.LayersNs.WallNs;
 
@@ -35,26 +36,11 @@ public partial class Stair : Node2D
         if (area2D != playerGraphicsArea) return;
 
 
-        // todo 抽象成area2d的扩展方法
-        var playerTop = float.MaxValue;
-        foreach (var child in playerGraphicsArea.GetChildren())
-        {
-            if (child is not CollisionShape2D collisionShape2D) continue;
-            var top = (collisionShape2D.Shape.GetRect().Position * collisionShape2D.GlobalScale +
-                       collisionShape2D.GlobalPosition).Y;
-            if (top < playerTop)
-                playerTop = top;
-        }
+        var playerTop = (playerGraphicsArea.GetCollisionChildRect().Position * playerGraphicsArea.GlobalScale +
+                         playerGraphicsArea.GlobalPosition).Y;
 
-        var playerDetectAreaBottom = float.MinValue;
-        foreach (var child in PlayerDetectArea.GetChildren())
-        {
-            if (child is not CollisionShape2D collisionShape2D) continue;
-            var bottom = (collisionShape2D.Shape.GetRect().End * collisionShape2D.GlobalScale +
-                          collisionShape2D.GlobalPosition).Y;
-            if (bottom > playerDetectAreaBottom)
-                playerDetectAreaBottom = bottom;
-        }
+        var playerDetectAreaBottom = (PlayerDetectArea.GetCollisionChildRect().End * PlayerDetectArea.GlobalScale +
+                                      PlayerDetectArea.GlobalPosition).Y;
 
         var isGoDownStair = playerTop > playerDetectAreaBottom;
 

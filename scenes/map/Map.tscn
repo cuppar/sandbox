@@ -13,6 +13,7 @@ BottomLimit = NodePath("Limits/Bottom")
 LeftLimit = NodePath("Limits/Left")
 TopLimit = NodePath("Limits/Top")
 metadata/_edit_lock_ = true
+metadata/_edit_horizontal_guides_ = [373.0]
 
 [node name="TileMapContainer" type="Node2D" parent="."]
 y_sort_enabled = true
@@ -140,6 +141,7 @@ tile_set = ExtResource("3_ub0lj")
 
 [node name="Collision" type="TileMapLayer" parent="TileMapContainer/Layer2/Collision"]
 y_sort_enabled = true
+tile_map_data = PackedByteArray("AAAWAAkABgAJAAQAAAAXAAkABgAJAAQAAAAYAAkABgAJAAQAAAAZAAkABgAJAAQAAAAaAAkABgAJAAQAAAAbAAkABgAJAAQAAAA=")
 tile_set = ExtResource("3_ub0lj")
 
 [node name="Decorate" type="Node2D" parent="TileMapContainer/Layer2"]
