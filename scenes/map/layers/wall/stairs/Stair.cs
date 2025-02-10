@@ -23,9 +23,10 @@ public partial class Stair : Node2D
         var playerGraphicsArea = player.GraphicsArea;
         if (area2D != playerGraphicsArea) return;
 
-        if (player.ZIndex == ZIndex)
+
+        if (player.GetEffectiveZIndex() == this.GetEffectiveZIndex())
         {
-            player.ZIndex += LayersZIndexStep;
+            player.SetEffectiveZIndex(player.GetEffectiveZIndex() + LayersZIndexStep);
         }
     }
 
@@ -50,7 +51,7 @@ public partial class Stair : Node2D
 
         if (isGoDownStair)
         {
-            player.ZIndex = ZIndex;
+            player.SetEffectiveZIndex(this.GetEffectiveZIndex());
         }
     }
 
