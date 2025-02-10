@@ -19,8 +19,7 @@ y_sort_enabled = true
 [node name="Map" parent="MapContainer" instance=ExtResource("3_nekf2")]
 
 [node name="Player" parent="." node_paths=PackedStringArray("Camera") instance=ExtResource("2_x2rjg")]
-z_index = 10
-position = Vector2(846, 243)
+position = Vector2(770, 896)
 Camera = NodePath("Camera")
 
 [node name="Camera" parent="Player" instance=ExtResource("4_yctnx")]
