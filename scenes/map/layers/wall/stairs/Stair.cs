@@ -1,5 +1,4 @@
 using System;
-using System.Threading.Tasks;
 using Godot;
 using Sandbox.Globals;
 using Sandbox.Globals.Extensions;
@@ -30,7 +29,7 @@ public partial class Stair : Node2D
         }
     }
 
-    private async void _onPlayerDetectAreaAreaExited(Area2D area2D)
+    private void _onPlayerDetectAreaAreaExited(Area2D area2D)
     {
         var player = Game.Player;
         if (player == null) return;
