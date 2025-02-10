@@ -1,3 +1,5 @@
+using System;
+using System.Threading.Tasks;
 using Godot;
 using Sandbox.Globals;
 using Sandbox.Globals.Extensions;
@@ -28,19 +30,22 @@ public partial class Stair : Node2D
         }
     }
 
-    private void _onPlayerDetectAreaAreaExited(Area2D area2D)
+    private async void _onPlayerDetectAreaAreaExited(Area2D area2D)
     {
         var player = Game.Player;
         if (player == null) return;
         var playerGraphicsArea = player.GraphicsArea;
         if (area2D != playerGraphicsArea) return;
 
+        // 因为player使用scale进行翻转，所以scale可能为负值，需要对scale取绝对值进行计算
+        var playerTop = playerGraphicsArea.GetCollisionChildRect().Position.Y *
+                        Math.Abs(playerGraphicsArea.GlobalScale.Y) +
+                        playerGraphicsArea.GlobalPosition.Y;
 
-        var playerTop = (playerGraphicsArea.GetCollisionChildRect().Position * playerGraphicsArea.GlobalScale +
-                         playerGraphicsArea.GlobalPosition).Y;
-
-        var playerDetectAreaBottom = (PlayerDetectArea.GetCollisionChildRect().End * PlayerDetectArea.GlobalScale +
-                                      PlayerDetectArea.GlobalPosition).Y;
+        var playerDetectAreaBottom =
+            PlayerDetectArea.GetCollisionChildRect().End.Y *
+            Math.Abs(PlayerDetectArea.GlobalScale.Y) +
+            PlayerDetectArea.GlobalPosition.Y;
 
         var isGoDownStair = playerTop > playerDetectAreaBottom;
 

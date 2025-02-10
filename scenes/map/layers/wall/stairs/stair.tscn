@@ -1,13 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://ckpdsp4y6lwps"]
+[gd_scene load_steps=4 format=3 uid="uid://ckpdsp4y6lwps"]
 
-[ext_resource type="Script" path="res://scenes/map/layers/wall/Stair.cs" id="1_bf46k"]
-[ext_resource type="Texture2D" uid="uid://dokq6ychtkghd" path="res://scenes/map/layers/wall/wall.png" id="2_ppj6i"]
+[ext_resource type="Script" path="res://scenes/map/layers/wall/stairs/Stair.cs" id="1_bf46k"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q4pch"]
 size = Vector2(8, 96)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_85u3u"]
-size = Vector2(64, 1)
+size = Vector2(64, 3)
 
 [node name="Stair" type="Node2D" node_paths=PackedStringArray("PlayerDetectArea")]
 script = ExtResource("1_bf46k")
@@ -17,8 +16,6 @@ metadata/_edit_lock_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(16, 32)
-texture = ExtResource("2_ppj6i")
-region_enabled = true
 region_rect = Rect2(0, 256, 64, 96)
 
 [node name="Collisions" type="Node2D" parent="."]
@@ -38,5 +35,5 @@ shape = SubResource("RectangleShape2D_q4pch")
 [node name="PlayerDetectArea" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetectArea"]
-position = Vector2(16, -15.5)
+position = Vector2(16, -14.5)
 shape = SubResource("RectangleShape2D_85u3u")

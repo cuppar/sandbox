@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://ctpku5ncc532r"]
+
+[ext_resource type="PackedScene" uid="uid://ckpdsp4y6lwps" path="res://scenes/map/layers/wall/stairs/stair.tscn" id="1_31j8s"]
+[ext_resource type="Texture2D" uid="uid://dokq6ychtkghd" path="res://scenes/map/layers/wall/wall.png" id="2_fqdo8"]
+
+[node name="StairLeftRight1" instance=ExtResource("1_31j8s")]
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("2_fqdo8")
+region_enabled = true
+region_rect = Rect2(0, 384, 64, 96)
