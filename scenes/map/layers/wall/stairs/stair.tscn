@@ -1,39 +1,48 @@
-[gd_scene load_steps=4 format=3 uid="uid://ckpdsp4y6lwps"]
+[gd_scene load_steps=5 format=3 uid="uid://ckpdsp4y6lwps"]
 
 [ext_resource type="Script" path="res://scenes/map/layers/wall/stairs/Stair.cs" id="1_bf46k"]
+[ext_resource type="Texture2D" uid="uid://dokq6ychtkghd" path="res://scenes/map/layers/wall/wall.png" id="2_jpnbl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q4pch"]
 size = Vector2(8, 96)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_85u3u"]
-size = Vector2(64, 3)
+size = Vector2(48, 1)
 
 [node name="Stair" type="Node2D" node_paths=PackedStringArray("PlayerDetectArea")]
+y_sort_enabled = true
 script = ExtResource("1_bf46k")
-PlayerDetectArea = NodePath("PlayerDetectArea")
+PlayerDetectArea = NodePath("YSortPivot/PlayerDetectArea")
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(16, 32)
+[node name="YSortPivot" type="Node2D" parent="."]
+position = Vector2(0, -16)
+
+[node name="Sprite2D" type="Sprite2D" parent="YSortPivot"]
+position = Vector2(16, 48)
+texture = ExtResource("2_jpnbl")
+region_enabled = true
 region_rect = Rect2(0, 256, 64, 96)
 
-[node name="Collisions" type="Node2D" parent="."]
+[node name="Collisions" type="Node2D" parent="YSortPivot"]
+position = Vector2(0, 16)
 
-[node name="Left" type="StaticBody2D" parent="Collisions"]
+[node name="Left" type="StaticBody2D" parent="YSortPivot/Collisions"]
 position = Vector2(-12, 32)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Collisions/Left"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="YSortPivot/Collisions/Left"]
 shape = SubResource("RectangleShape2D_q4pch")
 
-[node name="Right" type="StaticBody2D" parent="Collisions"]
+[node name="Right" type="StaticBody2D" parent="YSortPivot/Collisions"]
 position = Vector2(44, 32)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Collisions/Right"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="YSortPivot/Collisions/Right"]
 shape = SubResource("RectangleShape2D_q4pch")
 
-[node name="PlayerDetectArea" type="Area2D" parent="."]
+[node name="PlayerDetectArea" type="Area2D" parent="YSortPivot"]
+position = Vector2(0, 16)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetectArea"]
-position = Vector2(16, -14.5)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="YSortPivot/PlayerDetectArea"]
+position = Vector2(16, -15.5)
 shape = SubResource("RectangleShape2D_85u3u")

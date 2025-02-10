@@ -1,10 +1,5 @@
-[gd_scene load_steps=3 format=3 uid="uid://b03m0j72n0phh"]
+[gd_scene load_steps=2 format=3 uid="uid://b03m0j72n0phh"]
 
 [ext_resource type="PackedScene" uid="uid://ckpdsp4y6lwps" path="res://scenes/map/layers/wall/stairs/stair.tscn" id="1_78ljf"]
-[ext_resource type="Texture2D" uid="uid://dokq6ychtkghd" path="res://scenes/map/layers/wall/wall.png" id="2_hdedm"]
 
 [node name="StairLeftRight0" instance=ExtResource("1_78ljf")]
-
-[node name="Sprite2D" parent="." index="0"]
-texture = ExtResource("2_hdedm")
-region_enabled = true

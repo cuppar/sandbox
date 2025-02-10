@@ -1,11 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://c07evyyhhrbpx"]
+[gd_scene load_steps=2 format=3 uid="uid://c07evyyhhrbpx"]
 
 [ext_resource type="PackedScene" uid="uid://ckpdsp4y6lwps" path="res://scenes/map/layers/wall/stairs/stair.tscn" id="1_hxiul"]
-[ext_resource type="Texture2D" uid="uid://dokq6ychtkghd" path="res://scenes/map/layers/wall/wall.png" id="2_vt0qo"]
 
 [node name="StairUpRight0" instance=ExtResource("1_hxiul")]
 
-[node name="Sprite2D" parent="." index="0"]
-texture = ExtResource("2_vt0qo")
-region_enabled = true
+[node name="Sprite2D" parent="YSortPivot" index="0"]
 region_rect = Rect2(96, 256, 64, 96)

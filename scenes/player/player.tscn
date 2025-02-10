@@ -12,7 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://c122n8qg2xgsa" path="res://scenes/player/animations/walk/GirlSample_Walk_DownRight.png" id="9_xcwoa"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d7d08"]
-size = Vector2(66.6667, 123.333)
+size = Vector2(46.6667, 123.333)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_74du7"]
 radius = 23.3928
