@@ -550,6 +550,7 @@ rotation = 1.5708
 shape = SubResource("CircleShape2D_74du7")
 
 [node name="SFX" type="Node2D" parent="."]
+metadata/_edit_group_ = true
 
 [node name="Walk" type="AudioStreamPlayer2D" parent="SFX"]
 stream = ExtResource("4_7ir87")
